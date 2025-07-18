@@ -1,0 +1,7 @@
+[workspace]
+resolver = "3"
+members = [
+    "userspace/rust/gui",
+    "userspace/rust/pci",
+    "userspace/rust/userspace_bindings",
+]
