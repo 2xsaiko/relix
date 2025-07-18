@@ -1,0 +1,27 @@
+diff -Naur a/build.rs b/build.rs
+--- a/build.rs	2006-07-24 03:21:28.000000000 +0200
++++ b/build.rs	2025-07-18 05:32:36.041072116 +0200
+@@ -48,9 +48,8 @@
+ 
+ #[allow(clippy::redundant_field_names)]
+ fn main() {
+-    let out_dir = env::var_os("OUT_DIR").unwrap();
+-    let src_path = Path::new("pciids/pci.ids");
+-    let dest_path = Path::new(&out_dir).join("pci_ids.cg.rs");
++    let src_path = std::path::PathBuf::from(std::env::args_os().nth(1).unwrap());
++    let dest_path = std::path::PathBuf::from(std::env::args_os().nth(2).unwrap()).join("pci_ids.cg.rs");
+     let input = {
+         let f = fs::File::open(src_path).unwrap();
+         BufReader::new(f)
+diff -Naur a/src/lib.rs b/src/lib.rs
+--- a/src/lib.rs	2006-07-24 03:21:28.000000000 +0200
++++ b/src/lib.rs	2025-07-18 05:33:13.909406516 +0200
+@@ -38,7 +38,7 @@
+ #![warn(missing_docs)]
+ 
+ // Codegen: introduces VENDORS, a phf::Map<u16, Vendor>.
+-include!(concat!(env!("OUT_DIR"), "/pci_ids.cg.rs"));
++include!("pci_ids.cg.rs");
+ 
+ /// An abstraction for iterating over all vendors in the PCI database.
+ pub struct Vendors;

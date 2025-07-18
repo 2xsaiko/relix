@@ -1,0 +1,11 @@
+[wrap-file]
+directory = pci-ids-0.2.5
+source_url = https://crates.io/api/v1/crates/pci-ids/0.2.5/download
+source_filename = pci-ids-0.2.5.tar.gz
+source_hash = d88ae3281b415d856e9c2ddbcdd5961e71c1a3e90138512c04d720241853a6af
+
+patch_directory = pci-ids
+diff_files = pci-ids.patch
+
+[provide]
+dependency_names = pci-ids-0.2-rs
