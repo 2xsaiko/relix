@@ -14,9 +14,6 @@ rust = import('rust')
 cc = meson.get_compiler('c')
 rustc = meson.get_compiler('rust')
 
-spin_dep = dependency('spin-0.9-rs')
-pci_ids_dep = dependency('pci-ids-0.2-rs')
-
 analyzer = false
 
 add_project_arguments(
@@ -68,7 +65,7 @@ if analyzer
   )
 endif
 
-add_project_arguments(
+add_global_arguments(
   '-Ctarget-feature=-avx,-avx2,-sse,-sse2,-sse3,-ssse3,-sse4.1,-sse4.2',
   '-Crelocation-model=static',
   '-Cpanic=abort',
@@ -117,6 +114,9 @@ add_project_link_arguments(
   cc.get_supported_link_arguments('-fno-pie', '-no-pie', '-nopie'),
   language: 'c'
 )
+
+spin_dep = dependency('spin-0.9-rs')
+pci_ids_dep = dependency('pci-ids-0.2-rs')
 
 global_include = include_directories('.', 'include')
 
